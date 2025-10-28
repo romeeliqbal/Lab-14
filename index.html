@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .message {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .error {
+      color: #d9534f;
+    }
+
+    .success {
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Student Registration</h2>
+    <form id="registrationForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
+
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter your age">
+
+      <label for="course">Select Course</label>
+      <select id="course">
+        <option value="">-- Select Course --</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Software Engineering">Software Engineering</option>
+        <option value="Information Technology">Information Technology</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const course = document.getElementById('course').value;
+
+      // Simple email validation regex
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      if (!name || !email || !age || !course) {
+        message.textContent = "All fields are required.";
+        message.className = "message error";
+        return;
+      }
+
+      if (!emailPattern.test(email)) {
+        message.textContent = "Please enter a valid email address.";
+        message.className = "message error";
+        return;
+      }
+
+      if (age < 16 || age > 60) {
+        message.textContent = "Age must be between 16 and 60.";
+        message.className = "message error";
+        return;
+      }
+
+      message.textContent = "Registration successful!";
+      message.className = "message success";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
